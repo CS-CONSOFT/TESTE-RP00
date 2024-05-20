@@ -1,21 +1,16 @@
-import { useEffect, useState } from "react";
-import api from "./axios";
+import { useState } from "react";
 import './App.css';
+import api from "./axios";
 
 function App() {
   const [noteTyped, setNoteTyped] = useState("20240100000000108");
   const [products, setProducts] = useState([]);
-  const [noteInfo, setNoteInfo] = useState(null);
+
   const [messageList, setMessageList] = useState('');
-  const [userId, setUserId] = useState('');
+
   const [loadingProducts, setLoadingList] = useState(false);
 
-  useEffect(() => {
-    // Simulando a função getObjectDataVc(DataKey.LoginResponse)
-    // Como você não forneceu essa implementação, estou apenas definindo um valor para userId para simular o resultado esperado.
-    // Você precisa substituir esta parte com a lógica real.
-    setUserId("exampleUserID");
-  }, []);
+
 
   async function searchNote() {
     const note = noteTyped;
@@ -29,7 +24,7 @@ function App() {
         const response = await getEtrgNota({ note, tenant });
         setLoadingList(false);
         setProducts(response.Produtos);
-        setNoteInfo(response.info_Nota);
+      
 
         // Define a mensagem quando a nota já foi entregue
         setMessageWhenNoteIsAlreadyDelivered(response.info_Nota.result);
