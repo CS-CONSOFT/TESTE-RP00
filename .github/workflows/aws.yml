@@ -25,4 +25,4 @@ jobs:
 
       - name: Deploy Application
         run: |
-          ssh -i ~/.ssh/aws_ec2_key ubuntu@44.139.189.111 'bash -s' < deploy.sh
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@44.193.189.111 'bash -s' < deploy.sh
