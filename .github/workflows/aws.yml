@@ -31,13 +31,18 @@ jobs:
         run: |
           ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "sudo npm install -g serve"
 
+      - name: Install Dependencies and Build
+        run: |
+          npm install
+          npm run build
+
       - name: Creating folder on EC2
         run: |
           ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "mkdir -p /home/ubuntu/web/build"
 
       - name: Transfer Build to EC2 Instance
         run: |
-          scp -i ~/.ssh/aws_ec2_key -r build/* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/
+          scp -i ~/.ssh/aws_ec2_key -r build/* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/build/
 
       - name: Start Web Server on EC2
         run: |
