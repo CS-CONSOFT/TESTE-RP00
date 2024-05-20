@@ -20,7 +20,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.AWS_EC2_KEY_PAIR }}" > ~/.ssh/aws_ec2_key
           chmod 600 ~/.ssh/aws_ec2_key
-          ssh-keyscan -H 44.193.189.111 >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.AWS_EC2_INSTANCE_IP }} >> ~/.ssh/known_hosts
           echo "StrictHostKeyChecking no" > ~/.ssh/config
 
       - name: Install Dependencies
@@ -34,9 +34,13 @@ jobs:
           ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "mkdir -p /home/ubuntu/web"
 
       - name: Transfer Build to EC2 Instance
-        run: scp -i ~/.ssh/aws_ec2_key -r build/* ubuntu@44.193.189.111:/home/ubuntu/web
+        run: |
+          scp -i ~/.ssh/aws_ec2_key -r build/* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web
+
+      - name: Install Serve
+        run: |
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "sudo npm install -g serve"
 
       - name: Start Web Server on EC2
         run: |
           ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "cd /home/ubuntu/web && serve -s"
-  
