@@ -78,22 +78,7 @@ function App() {
 
 
   async function confirmDelivery() {
-    const dd40id = noteInfo?.dd040_id;
-    // Simulando a função getUserProperties
-    // Como você não forneceu essa implementação, estou apenas definindo um valor para tenant para simular o resultado esperado.
-    // Você precisa substituir esta parte com a lógica real.
-    const tenant = "exampleTenantID";
-    const userIdentifier = userId;
-
-    // Simulando a função setEntrNotaVc
-    // Como você não forneceu essa implementação, estou apenas definindo um valor booleano aleatório para simular o resultado esperado.
-    // Você precisa substituir esta parte com a lógica real.
-    setTimeout(() => {
-      const ok = Math.random() < 0.5; // Simulando um resultado verdadeiro ou falso aleatório
-      if (ok) {
-        searchNote();
-      }
-    }, 1000);
+   console.log("teste");
   }
 
   return (
