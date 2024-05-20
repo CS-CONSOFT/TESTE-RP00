@@ -28,4 +28,7 @@ jobs:
   
       - name: Build and Package
         run: npm run build
+
+      - name: Transfer Build to EC2 Instance
+        run: scp -i ~/.ssh/aws_ec2_key -r build/* ubuntu@44.193.189.111:/home/ubuntu/web/
   
