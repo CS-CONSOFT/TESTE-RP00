@@ -44,6 +44,15 @@ jobs:
         run: |
           scp -i ~/.ssh/aws_ec2_key -r build/* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/build/
 
-      - name: Start Web Server on EC2
+
+      - name: Build Docker Image on EC2
         run: |
-          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "nohup serve -s /home/ubuntu/web/build > serve.log 2>&1 &"
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker build -t web-app-react-teste /home/ubuntu/web/build"
+  
+      - name: Start Docker Container on EC2
+        run: |
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker run -d -p 80:80 web-app-react-teste"
+
+#      - name: Start Web Server on EC2
+#        run: |
+#          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "cd /home/ubuntu/web && serve -s"
