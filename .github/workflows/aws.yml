@@ -55,7 +55,7 @@ jobs:
 
       - name: Transfer Build to EC2 Instance
         run: |
-          scp -i ~/.ssh/aws_ec2_key -r /* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/teste-docker/
+          scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/teste-docker/
 
 
 #      - name: Build Docker Image on EC2
