@@ -57,6 +57,14 @@ jobs:
         run: |
           scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/teste-docker/
 
+      - name: Build Docker Image on EC2
+        run: |
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "cd /home/ubuntu/web/teste-docker && sudo docker build -t web-app-react-teste ."
+  
+      - name: Start Docker Container on EC2
+        run: |
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "sudo docker run -d -p 80:80 web-app-react-teste"
+
 
 #      - name: Build Docker Image on EC2
 #        run: |
