@@ -46,4 +46,4 @@ jobs:
 
       - name: Start Web Server on EC2
         run: |
-          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "cd /home/ubuntu/web && serve -s"
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "nohup serve -s /home/ubuntu/web/build > serve.log 2>&1 &"
