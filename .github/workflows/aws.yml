@@ -47,7 +47,9 @@ jobs:
 
       - name: Build Docker Image on EC2
         run: |
-          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker build -t web-app-react-teste /home/ubuntu/web/build"
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "DOCKER_BUILDKIT=1 docker build -t web-app-react-teste /home/ubuntu/web/build"
+#          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker build -t web-app-react-teste /home/ubuntu/web/build"
+
   
       - name: Start Docker Container on EC2
         run: |
