@@ -29,11 +29,11 @@ jobs:
 
       - name: Transfer Project to EC2 Instance
         run: |
-          scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/teste-docker
+          scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/teste-docker
 
       - name: Build Docker Image on EC2
         run: |
-          scp -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker build -t web-app-react-teste /home/ubuntu/web/teste-docker"
+          scp -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker build -t web-app-react-teste /home/ubuntu/teste-docker"
   
       - name: Start Docker Container on EC2
         run: |
