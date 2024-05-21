@@ -27,17 +27,17 @@ jobs:
         run: |
           ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "sudo apt-get update && sudo apt-get install -y nodejs npm"
 
-      - name: Transfer Project to EC2 Instance
-        run: |
-          scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/teste-docker
+#      - name: Transfer Project to EC2 Instance
+#        run: |
+#          scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/teste-docker
 
-      - name: Build Docker Image on EC2
-        run: |
-          scp -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker build -t web-app-react-teste /home/ubuntu/teste-docker"
+#      - name: Build Docker Image on EC2
+#        run: |
+#          scp -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker build -t web-app-react-teste /home/ubuntu/teste-docker"
   
-      - name: Start Docker Container on EC2
-        run: |
-          scp -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker run -d -p 80:80 web-app-react-teste"
+#      - name: Start Docker Container on EC2
+#        run: |
+#          scp -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker run -d -p 80:80 web-app-react-teste"
           
 
 #      - name: Install Serve
@@ -49,13 +49,13 @@ jobs:
 #          npm install
           
 
-#      - name: Creating folder on EC2
-#        run: |
-#          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "mkdir -p /home/ubuntu/web/build"
+      - name: Creating folder on EC2
+        run: |
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "mkdir -p /home/ubuntu/web/teste-docker"
 
-#      - name: Transfer Build to EC2 Instance
-#        run: |
-#          scp -i ~/.ssh/aws_ec2_key -r build/* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/build/
+      - name: Transfer Build to EC2 Instance
+        run: |
+          scp -i ~/.ssh/aws_ec2_key -r /* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/teste-docker/
 
 
 #      - name: Build Docker Image on EC2
