@@ -18,9 +18,11 @@ jobs:
       - name: Configure SSH Access
         run: |
           mkdir -p ~/.ssh
+          echo "${{ secrets.AWS_EC2_KEY_PAIR }}" > ~/.ssh/aws_ec2_key
           chmod 600 ~/.ssh/aws_ec2_key
           ssh-keyscan -H ${{ secrets.AWS_EC2_INSTANCE_IP }} >> ~/.ssh/known_hosts
-         
+          echo "StrictHostKeyChecking no" > ~/.ssh/config
+
       - name: Install Node.js and npm
         run: |
           ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "sudo apt-get update && sudo apt-get install -y nodejs npm"
@@ -35,7 +37,7 @@ jobs:
   
       - name: Start Docker Container on EC2
         run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker run -d -p 80:80 web-app-react-teste"
+          scp -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "docker run -d -p 80:80 web-app-react-teste"
           
 
 #      - name: Install Serve
@@ -69,4 +71,5 @@ jobs:
 #      - name: Start Web Server on EC2
 #        run: |
 #          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "cd /home/ubuntu/web && serve -s"
+
 
