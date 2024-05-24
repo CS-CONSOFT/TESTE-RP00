@@ -1,7 +1,8 @@
 import { useState } from "react";
 import './App.css';
 import api from "./axios";
-import Header from "../submodulos/COMPONENTES_GERAIS/src/Componente_Header";
+import Header from "./submodule/COMPONENTE/src/Componente_Header";
+
 
 function App() {
   const [noteTyped, setNoteTyped] = useState("20240100000000108");
@@ -80,7 +81,7 @@ function App() {
   return (
     <div className="App">
       <div>
-        <Header />
+        <Header></Header>
       </div>
       <div>
         <input type="text" value={noteTyped} onChange={(e) => setNoteTyped(e.target.value)} />

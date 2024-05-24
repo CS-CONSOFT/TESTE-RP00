@@ -1,6 +1,7 @@
 [submodule "submodulos/TESTE-RP001"]
 	path = submodulos/TESTE-RP001
 	url = https://github.com/CS-CONSOFT/TESTE-RP001.git
-[submodule "submodulos/COMPONENTES_GERAIS"]
-	path = submodulos/COMPONENTES_GERAIS
+
+[submodule "src/submodule/COMPONENTE"]
+	path = src/submodule/COMPONENTE
 	url = https://github.com/CS-CONSOFT/TESTE-COMPONENTES.git
