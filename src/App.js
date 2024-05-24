@@ -1,6 +1,7 @@
 import { useState } from "react";
 import './App.css';
 import api from "./axios";
+import Header from "../submodulos/COMPONENTES_GERAIS/src/Componente_Header";
 
 function App() {
   const [noteTyped, setNoteTyped] = useState("20240100000000108");
@@ -20,19 +21,19 @@ function App() {
     const tenant = 135;
 
     try {
-        // Chama a função getEtrgNota com os parâmetros adequados
-        const response = await getEtrgNota({ note, tenant });
-        setLoadingList(false);
-        setProducts(response.Produtos);
-      
+      // Chama a função getEtrgNota com os parâmetros adequados
+      const response = await getEtrgNota({ note, tenant });
+      setLoadingList(false);
+      setProducts(response.Produtos);
 
-        // Define a mensagem quando a nota já foi entregue
-        setMessageWhenNoteIsAlreadyDelivered(response.info_Nota.result);
+
+      // Define a mensagem quando a nota já foi entregue
+      setMessageWhenNoteIsAlreadyDelivered(response.info_Nota.result);
     } catch (error) {
-        console.error('Erro ao buscar nota:', error);
-        setLoadingList(false);
+      console.error('Erro ao buscar nota:', error);
+      setLoadingList(false);
     }
-}
+  }
 
   function setMessageWhenNoteIsAlreadyDelivered(result) {
     switch (result) {
@@ -55,30 +56,32 @@ function App() {
 
   async function getEtrgNota(entregaGet) {
     try {
-        const params = {
-            prm_chave: entregaGet.note,
-            prm_Tenant_ID: entregaGet.tenant
-        };
+      const params = {
+        prm_chave: entregaGet.note,
+        prm_Tenant_ID: entregaGet.tenant
+      };
 
-        const response = await api.get('Csws_Apps/rest/CS_WS_Entrega_Balcao/Get_Etrg_Nota', { params });
-        return response.data;
+      const response = await api.get('Csws_Apps/rest/CS_WS_Entrega_Balcao/Get_Etrg_Nota', { params });
+      return response.data;
     } catch (err) {
-        console.log('==============ERROR========');
-        console.log(err);
-        console.log('===========================');
-        throw err;
+      console.log('==============ERROR========');
+      console.log(err);
+      console.log('===========================');
+      throw err;
     }
-}
+  }
 
 
 
   async function confirmDelivery() {
-   console.log("teste");
+    console.log("teste");
   }
 
   return (
     <div className="App">
-
+      <div>
+        <Header />
+      </div>
       <div>
         <input type="text" value={noteTyped} onChange={(e) => setNoteTyped(e.target.value)} />
         <button onClick={searchNote}>Search Note</button>
