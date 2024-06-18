@@ -23,27 +23,18 @@ jobs:
           ssh-keyscan -H ${{ secrets.AWS_EC2_INSTANCE_IP }} >> ~/.ssh/known_hosts
           echo "StrictHostKeyChecking no" > ~/.ssh/config
 
-      - name: Install Docker and Docker Compose on EC2
-        run: |
-          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "
-            sudo apt-get update &&
-            sudo apt-get install -y docker.io docker-compose &&
-            sudo systemctl start docker &&
-            sudo systemctl enable docker
-          "
-
       - name: Creating folder on EC2
         run: |
-          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "mkdir -p /home/ubuntu/web/teste-docker"
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "mkdir -p /home/ubuntu/web/novo-docker"
 
       - name: Transfer Project to EC2 Instance
         run: |
-          scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/teste-docker/
+          scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/novo-docker/
 
       - name: Build and Start Docker Containers on EC2
         run: |
           ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "
-            cd /home/ubuntu/web/teste-docker && 
+            cd /home/ubuntu/web/novo-docker && 
             sudo docker-compose down && 
             sudo docker-compose up -d --build
           "
