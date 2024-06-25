@@ -25,16 +25,16 @@ jobs:
 
       - name: Creating folder on EC2
         run: |
-          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "mkdir -p /home/ubuntu/web/novo-docker"
+          ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "mkdir -p /home/ubuntu/novo-docker-2"
 
       - name: Transfer Project to EC2 Instance
         run: |
-          scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/web/novo-docker/
+          scp -i ~/.ssh/aws_ec2_key -r ./* ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }}:/home/ubuntu/novo-docker-2/
 
       - name: Build and Start Docker Containers on EC2
         run: |
           ssh -i ~/.ssh/aws_ec2_key ubuntu@${{ secrets.AWS_EC2_INSTANCE_IP }} "
-            cd /home/ubuntu/web/novo-docker && 
+            cd /home/ubuntu/novo-docker-2 && 
             sudo docker-compose down && 
             sudo docker-compose up 
           "
