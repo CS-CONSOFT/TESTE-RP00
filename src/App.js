@@ -1,7 +1,6 @@
 import { useState } from "react";
 import './App.css';
 import api from "./axios";
-import Header from "./submodule/COMPONENTE/src/Componente_Header";
 
 
 function App() {
