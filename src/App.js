@@ -80,9 +80,6 @@ function App() {
   return (
     <div className="App">
       <div>
-        <Header></Header>
-      </div>
-      <div>
         <input type="text" value={noteTyped} onChange={(e) => setNoteTyped(e.target.value)} />
         <button onClick={searchNote}>Search Note</button>
       </div>
